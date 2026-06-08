@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "embed"
 	"fmt"
 	"log"
 	"os"
@@ -14,8 +15,8 @@ import (
 )
 
 //go:embed dark-theme.ico
-
 var iconData []byte
+
 var mToggleTheme *systray.MenuItem
 var user32 = syscall.NewLazyDLL("user32.dll")
 var procMessageBoxW = user32.NewProc("MessageBoxW")
@@ -24,10 +25,12 @@ const personalizePath = `Software\Microsoft\Windows\CurrentVersion\Themes\Person
 const newline = "\r\n"
 
 func MessageBox(title, text string, style uint) int {
+	titlePtr, _ := syscall.UTF16PtrFromString(title)
+	textPtr, _ := syscall.UTF16PtrFromString(text)
 	ret, _, _ := procMessageBoxW.Call(
 		0,
-		uintptr(unsafe.Pointer(syscall.StringToUTF16Ptr(text))),
-		uintptr(unsafe.Pointer(syscall.StringToUTF16Ptr(title))),
+		uintptr(unsafe.Pointer(textPtr)),
+		uintptr(unsafe.Pointer(titlePtr)),
 		uintptr(style),
 	)
 	return int(ret)
@@ -179,7 +182,7 @@ func main() {
 	log.SetOutput(f)
 
 	// Load icon (must be .ico for Windows)
-	iconData = loadIcon("dark-theme.ico")
+	//iconData = loadIcon("dark-theme.ico")
 
 	execPath, err := os.Executable()
 	if err != nil {
