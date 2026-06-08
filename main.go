@@ -13,6 +13,8 @@ import (
 	"golang.org/x/sys/windows/registry"
 )
 
+//go:embed dark-theme.ico
+
 var iconData []byte
 var mToggleTheme *systray.MenuItem
 var user32 = syscall.NewLazyDLL("user32.dll")
@@ -54,6 +56,14 @@ func onReady() {
 					log.Printf("%s", "Failed to toggle theme: "+err.Error())
 				} else {
 					mToggleTheme.SetTitle(getToggleLabel())
+				}
+				curMode, _ := getCurrentTheme()
+				if curMode {
+					log.Println("Switched to light mode.")
+					fmt.Println("Switched to light mode.")
+				} else {
+					log.Println("Switched to dark mode.")
+					fmt.Println("Switched to dark mode.")
 				}
 			case <-mAbout.ClickedCh:
 				var msg = fmt.Sprintf("Toggles Windows theme between light and dark mode%s%s© 2026 Tim Kennedy",
@@ -101,10 +111,8 @@ func getToggleLabel() string {
 		return "Toggle Light/Dark Mode"
 	}
 	if isLight {
-		log.Println("Switched to Light Mode")
 		return "Switch to Dark Mode"
 	}
-	log.Println("Switched to Dark Mode")
 	return "Switch to Light Mode"
 }
 
@@ -167,12 +175,18 @@ func watchThemeChanges() {
 }
 
 func main() {
+	f, _ := os.CreateTemp("", "toggletheme-*.log")
+	log.SetOutput(f)
+
 	// Load icon (must be .ico for Windows)
 	iconData = loadIcon("dark-theme.ico")
 
-	f, _ := os.CreateTemp("", "toggletheme-*.log")
-	log.SetOutput(f)
-	log.Println("Toggle Theme is starting up.")
+	execPath, err := os.Executable()
+	if err != nil {
+		fmt.Println("Error getting executable path:", err)
+		return
+	}
+	log.Printf("Toggle Theme is starting up from %s.", execPath)
 	fmt.Println("Toggle Theme is starting. Check the system tray.")
 
 	// Handle Ctrl+C / SIGTERM gracefully
