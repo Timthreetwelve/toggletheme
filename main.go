@@ -38,13 +38,13 @@ func MessageBox(title, text string, style uint) int {
 
 func onReady() {
 	systray.SetIcon(iconData)
-	systray.SetTitle("Go Tray App")
-	systray.SetTooltip("Toggle Theme")
+	//systray.SetTitle("Go Tray App")
+	systray.SetTooltip("ToggleTheme")
 
 	// Menu items
 	mToggleTheme = systray.AddMenuItem(getToggleLabel(), "Switch between light and dark mode")
 	systray.AddSeparator()
-	mAbout := systray.AddMenuItem("About", "About Toggle Theme")
+	mAbout := systray.AddMenuItem("About", "About ToggleTheme")
 	mQuit := systray.AddMenuItem("Quit", "Exit the application")
 
 	// Start registry watcher in background
@@ -69,9 +69,10 @@ func onReady() {
 					fmt.Println("Switched to dark mode.")
 				}
 			case <-mAbout.ClickedCh:
-				var msg = fmt.Sprintf("Toggles Windows theme between light and dark mode%s%s© 2026 Tim Kennedy",
-					newline, newline)
-				MessageBox("About Toggle Theme", msg, 0)
+				var msg = fmt.Sprintf("Toggles Windows theme between light and dark mode%s%s"+
+					"https://github.com/Timthreetwelve/toggletheme%s%sCreated by Tim Kennedy",
+					newline, newline, newline, newline)
+				MessageBox("About ToggleTheme", msg, 0)
 			case <-mQuit.ClickedCh:
 				systray.Quit()
 				return
@@ -83,15 +84,8 @@ func onReady() {
 func onExit() {
 	// Cleanup if needed
 	fmt.Println("Done.")
-	log.Println("Exiting.")
-}
-
-func loadIcon(path string) []byte {
-	data, err := os.ReadFile(path)
-	if err != nil {
-		log.Fatalf("Failed to load icon: %v", err)
-	}
-	return data
+	log.Printf("ToggleTheme is shutting down.")
+	log.Printf("")
 }
 
 func getCurrentTheme() (bool, error) {
@@ -178,19 +172,20 @@ func watchThemeChanges() {
 }
 
 func main() {
-	f, _ := os.CreateTemp("", "toggletheme-*.log")
-	log.SetOutput(f)
-
-	// Load icon (must be .ico for Windows)
-	//iconData = loadIcon("dark-theme.ico")
+	temp := os.TempDir()
+	logFile := temp + "\\toggletheme.log"
+	file, err := os.OpenFile(logFile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		fmt.Printf("error opening log file: %v", err)
+	}
+	log.SetOutput(file)
 
 	execPath, err := os.Executable()
 	if err != nil {
 		fmt.Println("Error getting executable path:", err)
 		return
 	}
-	log.Printf("Toggle Theme is starting up from %s.", execPath)
-	fmt.Println("Toggle Theme is starting. Check the system tray.")
+	log.Printf("ToggleTheme is starting up from %s.", execPath)
 
 	// Handle Ctrl+C / SIGTERM gracefully
 	sigChan := make(chan os.Signal, 1)
@@ -201,5 +196,6 @@ func main() {
 	}()
 
 	// Run systray
+	fmt.Println("ToggleTheme is running in the system tray. ")
 	systray.Run(onReady, onExit)
 }

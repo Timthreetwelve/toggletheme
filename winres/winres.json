@@ -15,7 +15,7 @@
           "name": "",
           "version": ""
         },
-        "description": "toggletheme",
+        "description": "ToggleTheme",
         "minimum-os": "win7",
         "execution-level": "as invoker",
         "ui-access": false,
@@ -37,22 +37,22 @@
     "#1": {
       "0000": {
         "fixed": {
-          "file_version": "0.1.0.0",
-          "product_version": "0.1.0.0"
+          "file_version": "0.1.1.0",
+          "product_version": "0.1.1.0"
         },
         "info": {
           "0409": {
             "Comments": "",
             "CompanyName": "T_K",
-            "FileDescription": "Toggle theme",
-            "FileVersion": "0.1.0",
+            "FileDescription": "ToggleTheme",
+            "FileVersion": "0.1.1",
             "InternalName": "",
             "LegalCopyright": "Copyright (c) 2026 Tim Kennedy",
             "LegalTrademarks": "",
             "OriginalFilename": "",
             "PrivateBuild": "",
-            "ProductName": "Toggle Theme",
-            "ProductVersion": "0.1.0",
+            "ProductName": "ToggleTheme",
+            "ProductVersion": "0.1.1",
             "SpecialBuild": ""
           }
         }
