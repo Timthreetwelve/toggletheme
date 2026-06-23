@@ -1,3 +1,13 @@
+// ToggleTheme is a Windows system tray application that allows users to toggle between
+// light and dark themes. It monitors the Windows registry for theme changes and updates
+// the system tray menu accordingly. The application provides a simple interface for
+// switching themes and includes an "About" dialog with information about the application.
+//
+// If you update winres/winres.json run: go-winres make
+//
+// build with: go build -ldflags "-s -w -H=windowsgui" -trimpath -o toggletheme.exe
+//
+
 package main
 
 import (
@@ -38,8 +48,8 @@ func MessageBox(title, text string, style uint) int {
 
 func onReady() {
 	systray.SetIcon(iconData)
-	//systray.SetTitle("Go Tray App")
 	systray.SetTooltip("ToggleTheme")
+	systray.SetOnTapped(handleToggleAction)
 
 	// Menu items
 	mToggleTheme = systray.AddMenuItem(getToggleLabel(), "Switch between light and dark mode")
@@ -55,23 +65,13 @@ func onReady() {
 		for {
 			select {
 			case <-mToggleTheme.ClickedCh:
-				if err := toggleTheme(); err != nil {
-					log.Printf("%s", "Failed to toggle theme: "+err.Error())
-				} else {
-					mToggleTheme.SetTitle(getToggleLabel())
-				}
-				curMode, _ := getCurrentTheme()
-				if curMode {
-					log.Println("Switched to light mode.")
-					fmt.Println("Switched to light mode.")
-				} else {
-					log.Println("Switched to dark mode.")
-					fmt.Println("Switched to dark mode.")
-				}
+				handleToggleAction()
 			case <-mAbout.ClickedCh:
 				var msg = fmt.Sprintf("Toggles Windows theme between light and dark mode%s%s"+
-					"https://github.com/Timthreetwelve/toggletheme%s%sCreated by Tim Kennedy",
-					newline, newline, newline, newline)
+					"Left-click the tray icon to toggle the theme.%s"+
+					"Right-click the tray icon to access the menu.%s%s"+
+					"https://github.com/Timthreetwelve/toggletheme",
+					newline, newline, newline, newline, newline)
 				MessageBox("About ToggleTheme", msg, 0)
 			case <-mQuit.ClickedCh:
 				systray.Quit()
@@ -79,6 +79,23 @@ func onReady() {
 			}
 		}
 	}()
+}
+
+func handleToggleAction() {
+	if err := toggleTheme(); err != nil {
+		log.Printf("%s", "Failed to toggle theme: "+err.Error())
+		return
+	}
+
+	mToggleTheme.SetTitle(getToggleLabel())
+	curMode, _ := getCurrentTheme()
+	if curMode {
+		log.Println("Switched to light mode.")
+		fmt.Println("Switched to light mode.")
+	} else {
+		log.Println("Switched to dark mode.")
+		fmt.Println("Switched to dark mode.")
+	}
 }
 
 func onExit() {
