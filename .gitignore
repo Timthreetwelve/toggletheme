@@ -36,3 +36,6 @@ config.json
 *.idea/
 *.vscode/
 *.vs/
+
+# Image files that don't need to be tracked
+dark-theme.svg
