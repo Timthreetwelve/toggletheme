@@ -2,7 +2,10 @@
   "RT_GROUP_ICON": {
     "APP": {
       "0000": [
+        "tt256.png",
         "tt128.png",
+        "tt64.png",
+        "tt48.png",
         "tt32.png",
         "tt16.png"
       ]
@@ -37,22 +40,22 @@
     "#1": {
       "0000": {
         "fixed": {
-          "file_version": "0.1.1.0",
-          "product_version": "0.1.1.0"
+          "file_version": "0.1.2.0",
+          "product_version": "0.1.2.0"
         },
         "info": {
           "0409": {
             "Comments": "",
             "CompanyName": "T_K",
-            "FileDescription": "ToggleTheme",
-            "FileVersion": "0.1.1",
+            "FileDescription": "Toggles Windows theme",
+            "FileVersion": "0.1.2",
             "InternalName": "",
             "LegalCopyright": "Copyright (c) 2026 Tim Kennedy",
             "LegalTrademarks": "",
             "OriginalFilename": "",
             "PrivateBuild": "",
             "ProductName": "ToggleTheme",
-            "ProductVersion": "0.1.1",
+            "ProductVersion": "0.1.2",
             "SpecialBuild": ""
           }
         }
