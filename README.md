@@ -1,8 +1,12 @@
 # ToggleTheme
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Go Version](https://img.shields.io/badge/Go-1.26.4-00ADD8?logo=go)](https://go.dev/)
 [![Platform](https://img.shields.io/badge/Platform-Windows-0078D6?logo=windows)](https://www.microsoft.com/windows)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/Timthreetwelve/toggletheme)](https://github.com/Timthreetwelve/toggletheme/releases/latest)
+[![GitHub Release Date](https://img.shields.io/github/release-date/timthreetwelve/toggletheme)](https://github.com/Timthreetwelve/toggletheme/releases/latest)
+[![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/timthreetwelve/toggletheme/latest)](https://github.com/Timthreetwelve/toggletheme/commits/main)
+[![GitHub last commit](https://img.shields.io/github/last-commit/timthreetwelve/toggletheme)](https://github.com/Timthreetwelve/toggletheme/commits/main)
 
 ToggleTheme is a lightweight Windows system tray app that switches your system theme between Light and Dark mode. Nothing fancy, just switches themes. 
 
