@@ -4,9 +4,11 @@
 [![Platform](https://img.shields.io/badge/Platform-Windows-0078D6?logo=windows)](https://www.microsoft.com/windows)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-ToggleTheme is a lightweight Windows system tray app that switches your system theme between Light and Dark mode.
+ToggleTheme is a lightweight Windows system tray app that switches your system theme between Light and Dark mode. Nothing fancy, just switches themes. 
 
 It runs in the notification area, lets you toggle themes with a click, and keeps its menu label in sync when theme settings change externally.
+
+I wrote it to quickly switch between themes while working on a new theme for my .NET apps. Maybe you could find a use for it too.
 
 ## Features
 
