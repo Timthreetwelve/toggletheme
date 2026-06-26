@@ -40,3 +40,4 @@ config.json
 # Image files that don't need to be tracked
 dark-theme.svg
 RELEASE_NOTES.md
+toggletheme*.zip
